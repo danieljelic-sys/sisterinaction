@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sisters in Action — Site Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Montserrat:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #2C1A0B;
+      --copper: #B87333;
+      --cream:  #FDF5E6;
+      --card:   #1E0F06;
+      --card2:  #241308;
+      --muted:  #A07850;
+      --green:  #4A7C59;
+      --red:    #8B2A2A;
+      --dim:    #8B6B4A;
+    }
+
+    html, body { min-height: 100vh; background: var(--bg); color: var(--cream); font-family: 'Montserrat', sans-serif; }
+
+    /* ── HEADER ── */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 28px;
+      background: var(--card);
+      border-bottom: 1px solid rgba(184,115,51,0.2);
+    }
+    .logo { font-family: 'DM Serif Text', serif; font-size: 18px; }
+    .logo span { color: var(--copper); font-style: italic; }
+    .header-tag {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 9px; color: var(--copper); letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .live-pill {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(74,124,89,0.15); border: 1px solid rgba(74,124,89,0.3);
+      padding: 4px 12px; border-radius: 20px;
+      font-family: 'Source Code Pro', monospace; font-size: 10px; color: #6DBF82;
+    }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #6DBF82; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ── STATUS STRIP ── */
+    .status-strip {
+      display: flex; gap: 0;
+      background: var(--card2);
+      border-bottom: 1px solid rgba(184,115,51,0.1);
+    }
+    .stat {
+      padding: 10px 24px;
+      border-right: 1px solid rgba(255,255,255,0.05);
+      flex: 1;
+    }
+    .stat-label { font-family: 'Source Code Pro', monospace; font-size: 8px; color: var(--dim); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 3px; }
+    .stat-val { font-size: 12px; color: var(--cream); font-weight: 500; }
+    .stat-val.green { color: #6DBF82; }
+    .stat-val.copper { color: var(--copper); }
+
+    /* ── LAYOUT ── */
+    .main { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; padding: 20px 28px; }
+    .full-width { grid-column: 1 / -1; }
+    .two-col { grid-column: span 2; }
+
+    /* ── PANEL ── */
+    .panel {
+      background: var(--card);
+      border: 1px solid rgba(184,115,51,0.12);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .panel-title {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 9px; color: var(--copper); letter-spacing: 0.15em; text-transform: uppercase;
+    }
+    .panel-body { padding: 14px 16px; }
+
+    /* ── WORKFLOW ── */
+    .workflow {
+      display: flex; align-items: center; gap: 0;
+      padding: 16px 20px;
+    }
+    .wf-step {
+      flex: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      position: relative;
+    }
+    .wf-step:not(:last-child)::after {
+      content: '→';
+      position: absolute; right: -12px; top: 20px;
+      color: var(--dim); font-size: 16px;
+    }
+    .wf-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(184,115,51,0.1);
+      border: 1px solid rgba(184,115,51,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .wf-label { font-size: 10px; font-weight: 600; color: var(--cream); letter-spacing: 0.05em; }
+    .wf-sub { font-size: 9px; color: var(--dim); text-align: center; }
+    .wf-cmd {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 8px; color: var(--copper);
+      background: rgba(184,115,51,0.08);
+      padding: 2px 6px; border-radius: 4px;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .wf-cmd:hover { background: rgba(184,115,51,0.2); }
+
+    /* ── FILE BROWSER ── */
+    .file-tree { display: flex; flex-direction: column; gap: 2px; }
+    .file-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 10px; border-radius: 6px;
+      cursor: pointer; transition: background 0.15s;
+      font-size: 12px;
+    }
+    .file-item:hover { background: rgba(184,115,51,0.08); }
+    .file-icon { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; }
+    .file-name { color: var(--cream); font-weight: 500; flex: 1; }
+    .file-size { font-family: 'Source Code Pro', monospace; font-size: 9px; color: var(--dim); }
+    .file-tag {
+      font-family: 'Source Code Pro', monospace; font-size: 8px;
+      padding: 2px 6px; border-radius: 4px;
+    }
+    .tag-html { background: rgba(184,115,51,0.15); color: var(--copper); }
+    .tag-img { background: rgba(74,124,89,0.15); color: #6DBF82; }
+    .tag-res { background: rgba(160,120,80,0.15); color: var(--muted); }
+    .folder-label {
+      font-family: 'Source Code Pro', monospace; font-size: 8px;
+      color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 8px 10px 4px; margin-top: 4px;
+    }
+
+    /* ── GIT COMMANDS ── */
+    .cmd-grid { display: flex; flex-direction: column; gap: 8px; }
+    .cmd-card {
+      background: var(--card2);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .cmd-action { font-size: 11px; font-weight: 600; color: var(--cream); margin-bottom: 6px; }
+    .cmd-block {
+      font-family: 'Source Code Pro', monospace; font-size: 10px;
+      color: #B5D99C; background: rgba(0,0,0,0.3);
+      padding: 6px 10px; border-radius: 5px;
+      position: relative; cursor: pointer;
+      line-height: 1.6;
+    }
+    .cmd-block:hover { background: rgba(0,0,0,0.5); }
+    .copy-hint {
+      position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+      font-size: 8px; color: var(--dim); opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .cmd-block:hover .copy-hint { opacity: 1; }
+    .cmd-desc { font-size: 9px; color: var(--dim); margin-top: 4px; }
+
+    /* ── QUICK ACTIONS ── */
+    .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .action-btn {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(184,115,51,0.2);
+      background: rgba(184,115,51,0.06);
+      cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .action-btn:hover { background: rgba(184,115,51,0.14); border-color: rgba(184,115,51,0.4); }
+    .action-btn.green-btn {
+      border-color: rgba(74,124,89,0.3);
+      background: rgba(74,124,89,0.08);
+    }
+    .action-btn.green-btn:hover { background: rgba(74,124,89,0.16); border-color: rgba(74,124,89,0.5); }
+    .action-icon { font-size: 18px; }
+    .action-text { display: flex; flex-direction: column; gap: 2px; }
+    .action-label { font-size: 11px; font-weight: 600; color: var(--cream); }
+    .action-sub { font-size: 9px; color: var(--dim); }
+
+    /* ── IMAGES STRIP ── */
+    .img-strip { display: flex; gap: 8px; flex-wrap: wrap; }
+    .img-thumb {
+      width: 72px; height: 72px; border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid rgba(184,115,51,0.2);
+      transition: border-color 0.2s; cursor: pointer;
+    }
+    .img-thumb:hover { border-color: var(--copper); }
+    .sticker-thumb {
+      width: 60px; height: 60px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px; padding: 4px;
+      border: 1px solid rgba(184,115,51,0.15);
+    }
+
+    /* ── DEPLOY STATUS ── */
+    .deploy-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 11px;
+    }
+    .deploy-row:last-child { border-bottom: none; }
+    .deploy-commit { color: var(--cream); font-weight: 500; }
+    .deploy-meta { font-family: 'Source Code Pro', monospace; font-size: 9px; color: var(--dim); }
+    .deploy-badge {
+      font-family: 'Source Code Pro', monospace; font-size: 8px;
+      padding: 2px 8px; border-radius: 10px;
+    }
+    .badge-ready { background: rgba(74,124,89,0.2); color: #6DBF82; }
+    .badge-building { background: rgba(184,115,51,0.2); color: var(--copper); }
+
+    /* ── COPY FEEDBACK ── */
+    .copied-toast {
+      position: fixed; bottom: 20px; right: 20px;
+      background: var(--card); border: 1px solid rgba(74,124,89,0.4);
+      color: #6DBF82; font-family: 'Source Code Pro', monospace; font-size: 11px;
+      padding: 8px 16px; border-radius: 8px;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .copied-toast.show { opacity: 1; }
+
+    a { color: var(--copper); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <div class="header-tag">Sisters in Action · Site Manager</div>
+    <div class="logo">sisters <span>in action</span></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="live-pill"><div class="live-dot"></div> Live on Vercel</div>
+    <a href="https://sisterinaction.vercel.app" target="_blank" style="font-family:'Source Code Pro',monospace;font-size:10px;color:var(--muted);">sisterinaction.vercel.app ↗</a>
+  </div>
+</header>
+
+<!-- STATUS STRIP -->
+<div class="status-strip">
+  <div class="stat">
+    <div class="stat-label">Deploy Status</div>
+    <div class="stat-val green">READY ✓</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Last Commit</div>
+    <div class="stat-val">Add files via upload</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Branch</div>
+    <div class="stat-val copper">main</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Total Deploys</div>
+    <div class="stat-val">16</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Repo</div>
+    <div class="stat-val"><a href="https://github.com/danieljelic-sys/sistersinaction" target="_blank">danieljelic-sys/sistersinaction ↗</a></div>
+  </div>
+</div>
+
+<!-- MAIN GRID -->
+<div class="main">
+
+  <!-- WORKFLOW — full width -->
+  <div class="panel full-width">
+    <div class="panel-header">
+      <span class="panel-title">Publish Workflow — Edit → Commit → Push → Deploy</span>
+      <span style="font-family:'Source Code Pro',monospace;font-size:9px;color:var(--dim);">Vercel auto-deploys on every push to main</span>
+    </div>
+    <div class="workflow">
+      <div class="wf-step">
+        <div class="wf-icon">✏️</div>
+        <div class="wf-label">1. Edit</div>
+        <div class="wf-sub">Modify files locally<br>or via VS Code</div>
+        <div class="wf-cmd">index.html · images/</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-icon">📋</div>
+        <div class="wf-label">2. Stage</div>
+        <div class="wf-sub">Mark files for commit</div>
+        <div class="wf-cmd" onclick="copyCmd('git add .')">git add .</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-icon">💾</div>
+        <div class="wf-label">3. Commit</div>
+        <div class="wf-sub">Save snapshot with message</div>
+        <div class="wf-cmd" onclick="copyCmd('git commit -m &quot;update: description&quot;')">git commit -m "..."</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-icon">🚀</div>
+        <div class="wf-label">4. Push</div>
+        <div class="wf-sub">Send to GitHub</div>
+        <div class="wf-cmd" onclick="copyCmd('git push origin main')">git push origin main</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-icon">⚡</div>
+        <div class="wf-label">5. Deploy</div>
+        <div class="wf-sub">Vercel auto-builds<br>~30 seconds</div>
+        <div class="wf-cmd">automatic ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILE BROWSER -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Repository Files</span>
+      <span style="font-family:'Source Code Pro',monospace;font-size:9px;color:var(--dim);">Design System/website/</span>
+    </div>
+    <div class="panel-body">
+      <div class="file-tree">
+        <div class="folder-label">📁 Root</div>
+        <div class="file-item">
+          <div class="file-icon">🌐</div>
+          <div class="file-name">index.html</div>
+          <span class="file-tag tag-html">HTML</span>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">🎨</div>
+          <div class="file-name">Brand Guidelines v1.html</div>
+          <span class="file-tag tag-html">HTML</span>
+        </div>
+
+        <div class="folder-label">📁 images/</div>
+        <div class="file-item">
+          <div class="file-icon">🐾</div>
+          <div class="file-name">akira-portrait.jpg</div>
+          <span class="file-tag tag-img">IMG</span>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">🐾</div>
+          <div class="file-name">atanasia-forest.jpg</div>
+          <span class="file-tag tag-img">IMG</span>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">🐾</div>
+          <div class="file-name">atanasia-visionary.jpg</div>
+          <span class="file-tag tag-img">IMG</span>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">🐾</div>
+          <div class="file-name">hero-sisters.jpg</div>
+          <span class="file-tag tag-img">IMG</span>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">🐾</div>
+          <div class="file-name">sisters-cherry.jpg</div>
+          <span class="file-tag tag-img">IMG</span>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">🎭</div>
+          <div class="file-name">akira-sticker.png</div>
+          <span class="file-tag tag-img">STICKER</span>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">🎭</div>
+          <div class="file-name">akira-sticker-2.png</div>
+          <span class="file-tag tag-img">STICKER</span>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">🎭</div>
+          <div class="file-name">atanasia-sticker.png</div>
+          <span class="file-tag tag-img">STICKER</span>
+        </div>
+
+        <div class="folder-label">📁 resources/</div>
+        <div class="file-item">
+          <div class="file-icon">📄</div>
+          <div class="file-name">Sisters_Workshop.pdf</div>
+          <span class="file-tag tag-res">PDF</span>
+        </div>
+        <div class="file-item">
+          <div class="file-icon">📊</div>
+          <div class="file-name">Sisters_Showcase.pptx</div>
+          <span class="file-tag tag-res">PPTX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIT COMMAND LIBRARY -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Git Command Library</span>
+      <span style="font-family:'Source Code Pro',monospace;font-size:9px;color:var(--dim);">click to copy</span>
+    </div>
+    <div class="panel-body">
+      <div class="cmd-grid">
+
+        <div class="cmd-card">
+          <div class="cmd-action">📥 Clone repo locally</div>
+          <div class="cmd-block" onclick="copyCmd('git clone https://github.com/danieljelic-sys/sistersinaction.git\ncd sistersinaction')">
+            git clone https://github.com/danieljelic-sys/sistersinaction.git<br>cd sistersinaction
+            <span class="copy-hint">copy</span>
+          </div>
+        </div>
+
+        <div class="cmd-card">
+          <div class="cmd-action">🖼️ Add new image to site</div>
+          <div class="cmd-block" onclick="copyCmd('git add images/\ngit commit -m &quot;add: new photo&quot;\ngit push origin main')">
+            git add images/<br>git commit -m "add: new photo"<br>git push origin main
+            <span class="copy-hint">copy</span>
+          </div>
+          <div class="cmd-desc">Copy image to images/ folder first, then run these</div>
+        </div>
+
+        <div class="cmd-card">
+          <div class="cmd-action">✏️ Update website content</div>
+          <div class="cmd-block" onclick="copyCmd('git add index.html\ngit commit -m &quot;update: homepage content&quot;\ngit push origin main')">
+            git add index.html<br>git commit -m "update: homepage content"<br>git push origin main
+            <span class="copy-hint">copy</span>
+          </div>
+        </div>
+
+        <div class="cmd-card">
+          <div class="cmd-action">🚀 Push all changes</div>
+          <div class="cmd-block" onclick="copyCmd('git add .\ngit commit -m &quot;update: site changes&quot;\ngit push origin main')">
+            git add .<br>git commit -m "update: site changes"<br>git push origin main
+            <span class="copy-hint">copy</span>
+          </div>
+          <div class="cmd-desc">Stages and pushes everything at once</div>
+        </div>
+
+        <div class="cmd-card">
+          <div class="cmd-action">🔍 Check status</div>
+          <div class="cmd-block" onclick="copyCmd('git status\ngit log --oneline -5')">
+            git status<br>git log --oneline -5
+            <span class="copy-hint">copy</span>
+          </div>
+          <div class="cmd-desc">See what changed + last 5 commits</div>
+        </div>
+
+        <div class="cmd-card">
+          <div class="cmd-action">⬇️ Pull latest from GitHub</div>
+          <div class="cmd-block" onclick="copyCmd('git pull origin main')">
+            git pull origin main
+            <span class="copy-hint">copy</span>
+          </div>
+          <div class="cmd-desc">Sync local copy with GitHub</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK ACTIONS + STICKERS -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Quick Links</span>
+    </div>
+    <div class="panel-body" style="display:flex;flex-direction:column;gap:16px;">
+
+      <div class="action-grid">
+        <a href="https://sisterinaction.vercel.app" target="_blank" class="action-btn green-btn">
+          <div class="action-icon">🌐</div>
+          <div class="action-text">
+            <div class="action-label">Live Site</div>
+            <div class="action-sub">sisterinaction.vercel.app</div>
+          </div>
+        </a>
+        <a href="https://github.com/danieljelic-sys/sistersinaction" target="_blank" class="action-btn">
+          <div class="action-icon">📦</div>
+          <div class="action-text">
+            <div class="action-label">GitHub Repo</div>
+            <div class="action-sub">danieljelic-sys</div>
+          </div>
+        </a>
+        <a href="https://vercel.com/daniel-team-s/sisterinaction" target="_blank" class="action-btn">
+          <div class="action-icon">⚡</div>
+          <div class="action-text">
+            <div class="action-label">Vercel Dashboard</div>
+            <div class="action-sub">deployments & settings</div>
+          </div>
+        </a>
+        <a href="index.html" target="_blank" class="action-btn">
+          <div class="action-icon">👁️</div>
+          <div class="action-text">
+            <div class="action-label">Preview Site</div>
+            <div class="action-sub">open index.html</div>
+          </div>
+        </a>
+      </div>
+
+      <div>
+        <div style="font-family:'Source Code Pro',monospace;font-size:8px;color:var(--dim);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px;">Sticker Assets</div>
+        <div class="img-strip">
+          <img src="images/akira-sticker.png" class="sticker-thumb" title="akira-sticker.png">
+          <img src="images/akira-sticker-2.png" class="sticker-thumb" title="akira-sticker-2.png">
+          <img src="images/atanasia-sticker.png" class="sticker-thumb" title="atanasia-sticker.png">
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'Source Code Pro',monospace;font-size:8px;color:var(--dim);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px;">Photo Library</div>
+        <div class="img-strip">
+          <img src="images/akira-portrait.jpg" class="img-thumb" title="akira-portrait.jpg">
+          <img src="images/atanasia-forest.jpg" class="img-thumb" title="atanasia-forest.jpg">
+          <img src="images/atanasia-visionary.jpg" class="img-thumb" title="atanasia-visionary.jpg">
+          <img src="images/hero-sisters.jpg" class="img-thumb" title="hero-sisters.jpg">
+          <img src="images/sisters-cherry.jpg" class="img-thumb" title="sisters-cherry.jpg">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RECENT DEPLOYS -->
+  <div class="panel full-width">
+    <div class="panel-header">
+      <span class="panel-title">Recent Deployments</span>
+      <a href="https://vercel.com/daniel-team-s/sisterinaction/deployments" target="_blank" style="font-family:'Source Code Pro',monospace;font-size:9px;color:var(--copper);">view all ↗</a>
+    </div>
+    <div class="panel-body">
+      <div class="deploy-row">
+        <div>
+          <div class="deploy-commit">Add files via upload</div>
+          <div class="deploy-meta">Jun 21, 2026 · main · edc5a77</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="deploy-meta">~30s build</span>
+          <span class="deploy-badge badge-ready">READY ✓</span>
+          <a href="https://vercel.com/daniel-team-s/sisterinaction/Fv3qkxYHSvMAQHbkCyKxN2LN1tSK" target="_blank" style="font-family:'Source Code Pro',monospace;font-size:9px;color:var(--copper);">inspect ↗</a>
+        </div>
+      </div>
+      <div class="deploy-row">
+        <div>
+          <div class="deploy-commit">Add resources section with downloadable materials</div>
+          <div class="deploy-meta">Jun 21, 2026 · main</div>
+        </div>
+        <div>
+          <span class="deploy-badge badge-ready">READY ✓</span>
+        </div>
+      </div>
+      <div class="deploy-row">
+        <div>
+          <div class="deploy-commit">Add files via upload</div>
+          <div class="deploy-meta">Jun 21, 2026 · main</div>
+        </div>
+        <div>
+          <span class="deploy-badge badge-ready">READY ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- TOAST -->
+<div class="copied-toast" id="toast">✓ copied to clipboard</div>
+
+<script>
+function copyCmd(text) {
+  // Decode HTML entities
+  const decoded = text.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+  navigator.clipboard.writeText(decoded).then(() => {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1800);
+  });
+}
+
+// Add copy handler to all cmd-block elements
+document.querySelectorAll('.cmd-block').forEach(el => {
+  el.style.cursor = 'pointer';
+});
+</script>
+
+</body>
+</html>

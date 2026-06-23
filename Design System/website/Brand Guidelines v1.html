@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sisters in Action — Brand Guidelines v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Montserrat:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#FDF5E6; --fg:#2C1A0B; --card:#FFF8F0;
+    --copper:#B87333; --tan:#D2B48C; --saddle:#8B4513;
+    --mfg:#6B4423; --deep:#5C3A21; --bdr:#D2B48C; --glow:#E8B273;
+    --sans:'Montserrat',sans-serif; --serif:'DM Serif Text',serif; --mono:'Source Code Pro',monospace;
+    --max:1080px;
+    --shadow-sm:0px 5px 10px -2px rgba(44,26,11,.10),0px 1px 2px -3px rgba(44,26,11,.10);
+    --shadow-md:0px 5px 10px -2px rgba(44,26,11,.10),0px 2px 4px -3px rgba(44,26,11,.10);
+    --shadow-lg:0px 5px 10px -2px rgba(44,26,11,.10),0px 4px 6px -3px rgba(44,26,11,.10);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.7;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px;}
+
+  /* eyebrow / headings */
+  .eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--copper);display:inline-block;}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,7vw,80px);line-height:1.02;color:var(--fg);}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,42px);line-height:1.12;color:var(--fg);}
+  h3{font-family:var(--serif);font-weight:400;font-size:22px;color:var(--fg);}
+  p{color:var(--mfg);}
+  p strong{color:var(--fg);font-weight:600;}
+  .lead{font-size:18px;color:var(--mfg);max-width:60ch;}
+
+  /* cover */
+  .cover{background:linear-gradient(160deg,#2C1A0B 0%,#5C3A21 100%);color:#FDF5E6;padding:96px 0 80px;position:relative;overflow:hidden;}
+  .cover .wrap{position:relative;z-index:2;}
+  .cover .ver{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--glow);margin-bottom:28px;}
+  .cover h1{color:#FDF5E6;margin-bottom:24px;}
+  .cover h1 .c{color:var(--glow);}
+  .cover .sub{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--tan);margin-top:8px;}
+  .cover .meta{display:flex;gap:40px;flex-wrap:wrap;margin-top:48px;border-top:1px solid rgba(232,178,115,.25);padding-top:28px;}
+  .cover .meta div span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--tan);margin-bottom:6px;}
+  .cover .meta div strong{font-family:var(--serif);font-size:20px;color:#FDF5E6;font-weight:400;}
+  .cover-rule{position:absolute;top:0;right:-5%;width:48%;height:100%;background:
+     repeating-linear-gradient(90deg,rgba(232,178,115,.06) 0 1px,transparent 1px 64px);z-index:1;}
+
+  /* section frame */
+  section.doc{padding:84px 0;border-bottom:1px solid var(--bdr);}
+  section.doc:nth-of-type(even){background:var(--card);}
+  .sec-head{margin-bottom:44px;max-width:64ch;}
+  .sec-head h2{margin-bottom:14px;}
+  .num{font-family:var(--serif);font-size:13px;color:var(--copper);}
+
+  /* essence cols */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .panel{background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:30px 28px;box-shadow:var(--shadow-sm);}
+  section.doc:nth-of-type(even) .panel{background:#FFFDF8;}
+  .panel h3{margin-bottom:8px;}
+  .panel p{font-size:14px;}
+  .tag{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:4px 11px;border-radius:4px;background:var(--copper);color:#fff;margin-bottom:14px;}
+  .tag.dark{background:var(--deep);}
+
+  /* logo */
+  .logo-stage{display:flex;flex-wrap:wrap;gap:24px;}
+  .logo-card{flex:1;min-width:280px;border:1px solid var(--bdr);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:56px 24px;text-align:center;}
+  .logo-card.dark{background:linear-gradient(160deg,#2C1A0B,#5C3A21);}
+  .wordmark{font-family:var(--serif);font-size:32px;color:var(--fg);}
+  .wordmark .c{color:var(--copper);}
+  .logo-card.dark .wordmark{color:#FDF5E6;}
+  .logo-card.dark .wordmark .c{color:var(--glow);}
+  .cap{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mfg);margin-top:18px;}
+
+  /* swatches */
+  .swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .swatch{border:1px solid var(--bdr);border-radius:10px;overflow:hidden;background:var(--bg);}
+  section.doc:nth-of-type(even) .swatch{background:#FFFDF8;}
+  .swatch .chip{height:96px;}
+  .swatch .info{padding:12px 14px;}
+  .swatch .info .nm{font-size:13px;font-weight:600;color:var(--fg);}
+  .swatch .info .hx{font-family:var(--mono);font-size:11px;color:var(--mfg);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+  .swatch .info .role{font-size:11px;color:var(--mfg);margin-top:6px;line-height:1.4;}
+  .grp-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);margin:34px 0 16px;}
+
+  /* type specimens */
+  .spec{border:1px solid var(--bdr);border-radius:10px;padding:30px;background:var(--bg);margin-bottom:18px;}
+  section.doc:nth-of-type(even) .spec{background:#FFFDF8;}
+  .spec .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--copper);margin-bottom:18px;}
+  .spec .meta span{color:var(--mfg);}
+  .sp-serif{font-family:var(--serif);font-size:52px;line-height:1.05;color:var(--fg);}
+  .sp-sans{font-family:var(--sans);font-size:26px;color:var(--fg);}
+  .sp-sans .w{display:block;font-size:15px;color:var(--mfg);margin-top:4px;}
+  .sp-mono{font-family:var(--mono);font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg);}
+  .scale-row{display:flex;align-items:baseline;gap:18px;padding:12px 0;border-top:1px dashed var(--bdr);}
+  .scale-row:first-child{border-top:none;}
+  .scale-row .lbl{font-family:var(--mono);font-size:11px;color:var(--copper);width:120px;flex-shrink:0;text-transform:uppercase;letter-spacing:.08em;}
+  .scale-row .ex{font-family:var(--serif);color:var(--fg);line-height:1;}
+
+  /* voice */
+  .voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .voice-card{border-radius:12px;padding:34px 32px;position:relative;overflow:hidden;}
+  .voice-card.akira{background:linear-gradient(135deg,rgba(184,115,51,.08),rgba(184,115,51,.16));border:1px solid var(--bdr);}
+  .voice-card.atan{background:linear-gradient(135deg,#2C1A0B,#5C3A21);border:1px solid #5C3A21;color:#F5E6D3;}
+  .voice-card h3{font-size:26px;margin:6px 0 4px;}
+  .voice-card.atan h3{color:#F5E6D3;}
+  .voice-card .role{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--copper);margin-bottom:18px;}
+  .voice-card.atan .role{color:var(--tan);}
+  .voice-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin:16px 0 20px;}
+  .voice-card li{font-size:13px;color:var(--mfg);padding-left:18px;position:relative;}
+  .voice-card.atan li{color:var(--tan);}
+  .voice-card li::before{content:"—";position:absolute;left:0;color:var(--copper);}
+  .voice-card.atan li::before{color:var(--glow);}
+  .qbox{font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.5;color:var(--copper);border-left:2px solid var(--copper);padding-left:16px;}
+  .voice-card.atan .qbox{color:var(--glow);border-color:var(--glow);}
+
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px;}
+  .dd .col{border:1px solid var(--bdr);border-radius:10px;padding:24px;background:var(--bg);}
+  section.doc:nth-of-type(even) .dd .col{background:#FFFDF8;}
+  .dd h4{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .dd .do h4{color:#4A7C59;}
+  .dd .dont h4{color:#C0392B;}
+  .dd p{font-size:13px;margin-bottom:9px;line-height:1.55;}
+  .dd p::before{margin-right:8px;font-weight:700;}
+  .dd .do p::before{content:"✓";color:#4A7C59;}
+  .dd .dont p::before{content:"✕";color:#C0392B;}
+
+  /* photography */
+  .photo-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;}
+  .ph{border-radius:10px;overflow:hidden;position:relative;border:1px solid var(--bdr);}
+  .ph img{width:100%;height:100%;object-fit:cover;}
+  .ph .lab{position:absolute;left:0;bottom:0;right:0;background:linear-gradient(transparent,rgba(20,12,5,.82));color:#FDF5E6;padding:24px 18px 14px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;}
+  .ph.tall{height:340px;}
+  .ph.bw img{filter:grayscale(1) contrast(1.04);}
+  .photo-principles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px;}
+  .pp{font-size:13px;color:var(--mfg);}
+  .pp strong{display:block;font-family:var(--serif);font-size:17px;color:var(--fg);font-weight:400;margin-bottom:5px;}
+
+  /* components */
+  .comp{border:1px solid var(--bdr);border-radius:10px;padding:28px;background:var(--bg);margin-bottom:16px;}
+  section.doc:nth-of-type(even) .comp{background:#FFFDF8;}
+  .comp .cl{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--copper);margin-bottom:18px;}
+  .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+  .btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:13px;font-weight:600;padding:11px 22px;border-radius:6px;border:none;cursor:default;text-decoration:none;}
+  .btn-primary{background:var(--copper);color:#fff;box-shadow:var(--shadow-sm);}
+  .btn-outline{background:transparent;color:var(--fg);border:1px solid var(--bdr);}
+  .btn-ghost{background:rgba(184,115,51,.12);color:var(--copper);border:1.5px solid rgba(184,115,51,.4);}
+  .pill{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;}
+  .pill.p{background:rgba(184,115,51,.12);color:var(--copper);border:1px solid var(--copper);}
+  .pill.s{background:var(--tan);color:var(--fg);}
+  .pill.d{background:var(--deep);color:#fff;}
+  .demo-card{border:1px solid var(--bdr);border-radius:8px;padding:24px;background:var(--card);box-shadow:var(--shadow-md);max-width:300px;}
+  .demo-card .ic{width:44px;height:44px;background:var(--copper);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+  .demo-card h3{font-size:20px;margin-bottom:6px;}
+  .demo-card p{font-size:13px;}
+  .statnum{font-family:var(--serif);font-size:42px;color:var(--copper);line-height:1;}
+  .statlbl{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--mfg);}
+
+  /* tokens table */
+  .tok{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .tok .box{border:1px solid var(--bdr);border-radius:10px;padding:24px;background:var(--bg);}
+  section.doc:nth-of-type(even) .tok .box{background:#FFFDF8;}
+  .tok .box h4{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--copper);margin-bottom:14px;}
+  .tline{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 0;border-top:1px dashed var(--bdr);font-size:13px;}
+  .tline:first-of-type{border-top:none;}
+  .tline code{font-family:var(--mono);font-size:12px;color:var(--fg);}
+  .tline .v{font-family:var(--mono);font-size:12px;color:var(--mfg);}
+  .radius-demo{height:40px;width:64px;background:rgba(184,115,51,.18);border:1px solid var(--copper);}
+  .emoji-row{display:flex;flex-wrap:wrap;gap:18px;font-size:30px;}
+  .emoji-row span{display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .emoji-row small{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--mfg);}
+
+  footer{background:#2C1A0B;color:#F5E6D3;padding:54px 0;text-align:center;}
+  footer .wm{font-family:var(--serif);font-size:20px;margin-bottom:8px;}
+  footer .wm .c{color:var(--glow);}
+  footer p{color:var(--tan);font-size:12px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;}
+  footer .line{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--tan);margin-top:20px;text-transform:none;letter-spacing:0;}
+
+  @media(max-width:820px){
+    .two,.three,.voice-grid,.swatch-grid,.tok,.dd,.photo-principles,.photo-row{grid-template-columns:1fr;}
+    .swatch-grid{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="cover-rule"></div>
+  <div class="wrap">
+    <div class="ver">Brand Guidelines · Version 1.0 · June 2026</div>
+    <h1>Sisters<br><span class="c">in Action.</span></h1>
+    <p class="sub">Two beagles. Zero chill. One brand.</p>
+    <div class="meta">
+      <div><span>Brand</span><strong>Sisters in Action</strong></div>
+      <div><span>Category</span><strong>AI Pet Content</strong></div>
+      <div><span>Talent</span><strong>Akira &amp; Atanasia</strong></div>
+      <div><span>Document</span><strong>v1 — Foundations</strong></div>
+    </div>
+  </div>
+</header>
+
+<!-- 01 ESSENCE -->
+<section class="doc">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="num">01</span> Brand Essence</p>
+      <h2>A character-driven content brand — engineered, not guessed.</h2>
+      <p class="lead">Sisters in Action is the chaos-and-mastermind content engine behind two real beagles. We don't make cute pet clips; we build personality-driven stories for the algorithm age, produced by a dual-AI system. Everything we publish has a hook, a beat, and a payoff.</p>
+    </div>
+    <div class="three">
+      <div class="panel">
+        <span class="tag">Positioning</span>
+        <h3>Character over cute</h3>
+        <p>We lead with personality and narrative, not generic "aww" content. Akira destroys. Atanasia calculates.</p>
+      </div>
+      <div class="panel">
+        <span class="tag">Brand line</span>
+        <h3>"Give us your lunch,<br>we are always hungry."</h3>
+        <p>The rallying cry. Always spoken in the beagles' first-person voice — never the owner's.</p>
+      </div>
+      <div class="panel">
+        <span class="tag dark">Tone</span>
+        <h3>Premium, warm, a little unhinged</h3>
+        <p>Editorial design discipline meets beagle chaos. Sophisticated, never corporate; playful, never childish.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 LOGO -->
+<section class="doc">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="num">02</span> Logo &amp; Wordmark</p>
+      <h2>The wordmark.</h2>
+      <p class="lead">Set in DM Serif Text. "Sisters" carries the brand color of the surface; "in Action" always takes the copper (or glow, on dark) accent. Keep clear space of at least the cap-height of the wordmark on every side.</p>
+    </div>
+    <div class="logo-stage">
+      <div class="logo-card">
+        <div>
+          <div class="wordmark">Sisters <span class="c">in Action</span></div>
+          <div class="cap">Primary · on cream</div>
+        </div>
+      </div>
+      <div class="logo-card dark">
+        <div>
+          <div class="wordmark">Sisters <span class="c">in Action</span></div>
+          <div class="cap" style="color:var(--tan);">Reverse · on deep brown</div>
+        </div>
+      </div>
+    </div>
+    <div class="dd">
+      <div class="col do">
+        <h4>Do</h4>
+        <p>Use the serif wordmark with the copper accent on "in Action".</p>
+        <p>Give it room — generous clear space, never crowded.</p>
+        <p>Reverse to cream + glow on dark photo or brown surfaces.</p>
+      </div>
+      <div class="col dont">
+        <h4>Don't</h4>
+        <p>Don't set the wordmark in the sans or mono fonts.</p>
+        <p>Don't recolor "in Action" to anything but copper / glow.</p>
+        <p>Don't stretch, outline, or add drop shadows to the mark.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 COLOR -->
+<section class="doc">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="num">03</span> Color</p>
+      <h2>Copper on warm cream.</h2>
+      <p class="lead">A warm, earthy palette pulled straight from a beagle's coat — copper and saddle browns over cream, anchored by a near-black espresso. Copper is the single hero accent; everything else supports it.</p>
+    </div>
+
+    <div class="grp-label">Core / Hero</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:#B87333;"></div><div class="info"><div class="nm">Copper</div><div class="hx">#B87333</div><div class="role">Hero accent — buttons, links, highlights</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#2C1A0B;"></div><div class="info"><div class="nm">Espresso</div><div class="hx">#2C1A0B</div><div class="role">Foreground text, dark surfaces</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#FDF5E6;border-bottom:1px solid var(--bdr);"></div><div class="info"><div class="nm">Cream</div><div class="hx">#FDF5E6</div><div class="role">Primary background</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#FFF8F0;border-bottom:1px solid var(--bdr);"></div><div class="info"><div class="nm">Card Cream</div><div class="hx">#FFF8F0</div><div class="role">Card &amp; alt-section surface</div></div></div>
+    </div>
+
+    <div class="grp-label">Warm Neutrals &amp; Depth</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:#D2B48C;"></div><div class="info"><div class="nm">Tan</div><div class="hx">#D2B48C</div><div class="role">Secondary, borders, inputs</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#8B4513;"></div><div class="info"><div class="nm">Saddle</div><div class="hx">#8B4513</div><div class="role">Accent / deeper copper</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#5C3A21;"></div><div class="info"><div class="nm">Cocoa</div><div class="hx">#5C3A21</div><div class="role">Dark gradients, dark cards</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#6B4423;"></div><div class="info"><div class="nm">Muted Brown</div><div class="hx">#6B4423</div><div class="role">Body / muted text</div></div></div>
+    </div>
+
+    <div class="grp-label">Accents &amp; Semantic</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:#E8B273;"></div><div class="info"><div class="nm">Glow</div><div class="hx">#E8B273</div><div class="role">Accent on dark photo bands</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#4A7C59;"></div><div class="info"><div class="nm">Positive</div><div class="hx">#4A7C59</div><div class="role">Success / pillar accent</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#C0392B;"></div><div class="info"><div class="nm">Destructive</div><div class="hx">#C0392B</div><div class="role">Errors, "don't" warnings</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#1A1A1A;"></div><div class="info"><div class="nm">Dark-mode BG</div><div class="hx">#1A1A1A</div><div class="role">Dark theme surface (primary → #D4A574)</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 TYPE -->
+<section class="doc">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="num">04</span> Typography</p>
+      <h2>Three voices, clearly cast.</h2>
+      <p class="lead">An elegant serif for display, a flexible sans for everything readable, and a mono for labels and structure. Each has one job — don't mix the roles.</p>
+    </div>
+
+    <div class="spec">
+      <div class="meta">DM Serif Text <span>Display · Headings · Quotes · Stat numbers</span></div>
+      <div class="sp-serif">Two Beagles.<br>Zero Chill.</div>
+    </div>
+
+    <div class="spec">
+      <div class="meta">Montserrat <span>Body · UI · 300–800</span></div>
+      <div class="sp-sans">The quick brown beagle stops the scroll.
+        <span class="w">Light 300 · Regular 400 · Medium 500 · Semibold 600 · Bold 700 · Extrabold 800</span>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="meta">Source Code Pro <span>Eyebrows · Tags · Labels · Stats</span></div>
+      <div class="sp-mono">01 / The Engine Room · 256K Context</div>
+    </div>
+
+    <div class="spec">
+      <div class="meta">Type scale <span>Responsive — clamp()</span></div>
+      <div class="scale-row"><div class="lbl">H1 · 36–64</div><div class="ex" style="font-size:46px;">Display headline</div></div>
+      <div class="scale-row"><div class="lbl">H2 · 28–44</div><div class="ex" style="font-size:34px;">Section title</div></div>
+      <div class="scale-row"><div class="lbl">H3 · 20–26</div><div class="ex" style="font-size:24px;">Card heading</div></div>
+      <div class="scale-row"><div class="lbl">Body · 15/1.7</div><div class="ex" style="font-family:var(--sans);font-size:15px;color:var(--mfg);">Comfortable reading copy in Montserrat.</div></div>
+      <div class="scale-row"><div class="lbl">Eyebrow · 11</div><div class="ex" style="font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);">Mono · uppercase · .16em</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 VOICE -->
+<section class="doc">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="num">05</span> Voice &amp; Tone</p>
+      <h2>The beagles always speak. Never the owner.</h2>
+      <p class="lead">Every caption, every line, is first-person — Akira or Atanasia. Two distinct personalities power the whole brand. The contrast between them <strong>is</strong> the content.</p>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice-card akira">
+        <span class="tag">Chaos Bringer</span>
+        <h3>Akira</h3>
+        <div class="role">Bold · Hungry · Loud</div>
+        <ul>
+          <li>Short sentences. Action verbs.</li>
+          <li>Executes first, thinks never.</li>
+          <li>Pure joyful destruction.</li>
+        </ul>
+        <p class="qbox">"I don't plan. I execute. Poorly. Loudly. Joyfully."</p>
+      </div>
+      <div class="voice-card atan">
+        <span class="tag dark">Mastermind</span>
+        <h3>Atanasia</h3>
+        <div class="role">Calm · Dry · Strategic</div>
+        <ul>
+          <li>Composed, measured cadence.</li>
+          <li>Dry wit, intellectual takedowns.</li>
+          <li>Always three steps ahead.</li>
+        </ul>
+        <p class="qbox">"I see you watching. I know what you want. I'm already three steps ahead."</p>
+      </div>
+    </div>
+
+    <div class="dd">
+      <div class="col do">
+        <h4>Do</h4>
+        <p>Write in first person, in-character, every time.</p>
+        <p>Play Akira's chaos against Atanasia's calm.</p>
+        <p>Use emoji as punctuation — sparingly, with intent (🐾 👑 🌸).</p>
+        <p>Keep it warm, witty, a little feral.</p>
+      </div>
+      <div class="col dont">
+        <h4>Don't</h4>
+        <p>Don't write generic pet advice or "relatable" filler.</p>
+        <p>Don't sound corporate, salesy, or like a brand account.</p>
+        <p>Don't break character or speak as the human.</p>
+        <p>Don't flood copy with emoji or hashtags.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 PHOTOGRAPHY -->
+<section class="doc">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="num">06</span> Photography &amp; Imagery</p>
+      <h2>Real, warm, golden-hour.</h2>
+      <p class="lead">Candid documentary photography of the real beagles — never stock. Warm natural light is the default. A desaturated black-and-white treatment is reserved for "mastermind" / editorial moments. Full-bleed bands carry a dark gradient so cream text always reads.</p>
+    </div>
+
+    <div class="photo-row">
+      <div class="ph tall"><img src="images/hero-sisters.jpg" alt="golden hour walk"><div class="lab">Signature · Golden-hour, full-bleed band</div></div>
+      <div class="ph tall bw"><img src="images/atanasia-visionary.jpg" alt="b&w editorial"><div class="lab">B&amp;W · Mastermind / editorial</div></div>
+    </div>
+    <div class="photo-row" style="grid-template-columns:1fr 1fr 1fr;">
+      <div class="ph" style="height:200px;"><img src="images/akira-portrait.jpg" alt="akira"><div class="lab">Portrait · Akira</div></div>
+      <div class="ph" style="height:200px;"><img src="images/atanasia-forest.jpg" alt="atanasia"><div class="lab">Portrait · Atanasia</div></div>
+      <div class="ph" style="height:200px;"><img src="images/sisters-cherry.jpg" alt="together"><div class="lab">Together · Seasonal warmth</div></div>
+    </div>
+
+    <div class="photo-principles">
+      <div class="pp"><strong>Warm by default</strong>Natural golden light, soft shadows, earthy greens and copper tones that echo the palette.</div>
+      <div class="pp"><strong>Candid, not posed</strong>Real moments — walking, watching, sniffing, mid-chaos. Authenticity over polish.</div>
+      <div class="pp"><strong>Gradient protection</strong>On full-bleed photos, layer a 22→58% espresso gradient so cream headlines stay legible.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 COMPONENTS -->
+<section class="doc">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="num">07</span> UI Components</p>
+      <h2>The building blocks.</h2>
+      <p class="lead">Soft 6–8px radii, subtle brown-tinted shadows, hairline tan borders. Hover lifts the element 1–3px and slightly fades. Calm, tactile, warm.</p>
+    </div>
+
+    <div class="comp">
+      <div class="cl">Buttons</div>
+      <div class="row">
+        <span class="btn btn-primary">Follow the Chaos</span>
+        <span class="btn btn-outline">Watch Latest</span>
+        <span class="btn btn-ghost">Work With Us</span>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="cl">Tags &amp; Pills</div>
+      <div class="row">
+        <span class="pill p">Chaos Bringer</span>
+        <span class="pill s">Secondary</span>
+        <span class="pill d">Mastermind</span>
+        <span class="tag" style="margin:0;">Kimi Work Desktop</span>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="cl">Card &amp; Stat</div>
+      <div class="row" style="gap:40px;align-items:flex-start;">
+        <div class="demo-card">
+          <div class="ic">🎬</div>
+          <h3>Content</h3>
+          <p>TikTok, Reels, Shorts built on the chaos-vs-mastermind dynamic.</p>
+        </div>
+        <div style="text-align:center;">
+          <div class="statnum">500+</div>
+          <div class="statlbl">Videos Published</div>
+        </div>
+        <div style="text-align:center;">
+          <div class="statnum">1.2M</div>
+          <div class="statlbl">Interactions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 TOKENS -->
+<section class="doc">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="num">08</span> Tokens &amp; System</p>
+      <h2>Spacing, radius, shadow, icon.</h2>
+    </div>
+    <div class="tok">
+      <div class="box">
+        <h4>Radius</h4>
+        <div class="tline"><code>--r-sm</code><span class="v">4px</span><div class="radius-demo" style="border-radius:4px;"></div></div>
+        <div class="tline"><code>--r-md</code><span class="v">6px</span><div class="radius-demo" style="border-radius:6px;"></div></div>
+        <div class="tline"><code>--r-lg</code><span class="v">8px</span><div class="radius-demo" style="border-radius:8px;"></div></div>
+        <div class="tline"><code>--r-xl</code><span class="v">12px</span><div class="radius-demo" style="border-radius:12px;"></div></div>
+      </div>
+      <div class="box">
+        <h4>Layout &amp; Spacing</h4>
+        <div class="tline"><code>Container max</code><span class="v">1100px</span></div>
+        <div class="tline"><code>Section padding</code><span class="v">96px · 0</span></div>
+        <div class="tline"><code>Grid gap</code><span class="v">16–24px</span></div>
+        <div class="tline"><code>Gutter</code><span class="v">24–32px</span></div>
+      </div>
+      <div class="box">
+        <h4>Shadow (brown-tinted)</h4>
+        <div class="tline"><code>--shadow-sm</code><div class="radius-demo" style="border:none;background:#fff;box-shadow:var(--shadow-sm);"></div></div>
+        <div class="tline"><code>--shadow-md</code><div class="radius-demo" style="border:none;background:#fff;box-shadow:var(--shadow-md);"></div></div>
+        <div class="tline"><code>--shadow-lg</code><div class="radius-demo" style="border:none;background:#fff;box-shadow:var(--shadow-lg);"></div></div>
+      </div>
+      <div class="box">
+        <h4>Iconography — Emoji</h4>
+        <p style="font-size:13px;margin-bottom:16px;">Emoji act as the icon set — warm, expressive, used sparingly as accents and section markers.</p>
+        <div class="emoji-row">
+          <span>🐾<small>Brand</small></span>
+          <span>👑<small>Atanasia</small></span>
+          <span>🌸<small>Soft</small></span>
+          <span>🎬<small>Content</small></span>
+          <span>🔍<small>Intel</small></span>
+          <span>🤖<small>AI</small></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="wm">Sisters <span class="c">in Action</span></div>
+    <p>Brand Guidelines · Version 1.0</p>
+    <p class="line">"Vidim te. Volim te. Mi jesmo." 👑🌸</p>
+  </div>
+</footer>
+
+</body>
+</html>
