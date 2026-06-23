@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About this project — Sisters in a New World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #2C1A0B;
+      --card:   #1E0F06;
+      --copper: #B87333;
+      --cream:  #FDF5E6;
+      --muted:  #A07850;
+      --dim:    #8B6B4A;
+      --green:  #4A7C59;
+      --border: rgba(184,115,51,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    nav {
+      width: 100%;
+      padding: 22px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Text', Georgia, serif;
+      font-size: 17px;
+      color: var(--copper);
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--cream); }
+    .nav-back::before { content: '←'; }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 720px;
+      padding: 72px 36px 100px;
+    }
+
+    /* ── LABEL + HEADING ── */
+    .page-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Text', Georgia, serif;
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .lead {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 64px;
+      max-width: 600px;
+    }
+
+    /* ── SECTION ── */
+    section { margin-bottom: 56px; }
+
+    h2 {
+      font-family: 'DM Serif Text', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+
+    p strong { color: var(--cream); font-weight: 400; }
+
+    /* ── AI TEAM CARDS ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .team-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+
+    .team-card-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--copper);
+      margin-bottom: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .team-card-role {
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .team-card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── AUTHOR CARD ── */
+    .author-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px 36px 32px;
+      margin-top: 8px;
+    }
+
+    .author-name {
+      font-family: 'DM Serif Text', Georgia, serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+
+    .author-role {
+      font-size: 12px;
+      color: var(--copper);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-link:hover { border-color: var(--copper); color: var(--cream); }
+    .contact-link svg { width: 14px; height: 14px; opacity: 0.7; }
+
+    /* ── PHILOSOPHY BOX ── */
+    .philosophy {
+      border-left: 2px solid var(--copper);
+      background: rgba(184,115,51,0.06);
+      border-radius: 0 10px 10px 0;
+      padding: 28px 32px;
+      margin-top: 56px;
+    }
+
+    .philosophy p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 0;
+    }
+
+    .philosophy p + p { margin-top: 14px; }
+
+    /* ── FOOTER ── */
+    footer {
+      width: 100%;
+      padding: 24px 36px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    footer p { font-size: 12px; color: var(--dim); letter-spacing: 0.03em; }
+    footer a { color: var(--copper); text-decoration: none; }
+
+    @media (max-width: 580px) {
+      main { padding: 48px 24px 72px; }
+      .team-grid { grid-template-columns: 1fr; }
+      .author-card { padding: 24px 22px 22px; }
+      nav { padding: 18px 24px; }
+      .philosophy { padding: 22px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="/">Sisters in a New World</a>
+    <a class="nav-back" href="/">Back to site</a>
+  </nav>
+
+  <main>
+
+    <p class="page-label">About this project</p>
+    <h1>Built by AI.<br>Directed by a human.</h1>
+    <p class="lead">
+      This website is the work of an AI operator team — built, written, and deployed
+      with minimal human intervention. That is not a disclaimer. That is the point.
+    </p>
+
+    <!-- WHAT THIS IS -->
+    <section>
+      <h2>What Sisters in a New World is</h2>
+      <p>
+        <strong>Sisters in a New World</strong> is a pet content brand built around two beagle sisters,
+        Akira and Atanasia. But it is also something else: a live experiment in
+        AI-led creative production.
+      </p>
+      <p>
+        Every piece of content — the scripts, the visuals, the copy, the code behind
+        this page — was produced by a team of AI operators working under a single
+        human creative director. The brand exists as a brand. And simultaneously,
+        it exists as a proof of what that kind of work can look like.
+      </p>
+    </section>
+
+    <!-- THE AI TEAM -->
+    <section>
+      <h2>The AI team</h2>
+      <p>
+        Each operator has a defined role, a voice, and a scope of responsibility.
+        Together, they form the production layer of the brand.
+      </p>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <p class="team-card-name">Claude Chronos</p>
+          <p class="team-card-role">AI Operator &amp; Project Lead</p>
+          <p class="team-card-desc">Coordinates the team, manages workflows, builds tools, and maintains context across sessions.</p>
+        </div>
+        <div class="team-card">
+          <p class="team-card-name">Scout</p>
+          <p class="team-card-role">Research Analyst</p>
+          <p class="team-card-desc">Monitors trends, tracks audiences, and delivers weekly intelligence briefs for the brand.</p>
+        </div>
+        <div class="team-card">
+          <p class="team-card-name">Scripto</p>
+          <p class="team-card-role">Video Scripter</p>
+          <p class="team-card-desc">Writes short-form scripts in Akira's and Atanasia's voice for Reels and TikTok.</p>
+        </div>
+        <div class="team-card">
+          <p class="team-card-name">Tana</p>
+          <p class="team-card-role">Content Reviewer</p>
+          <p class="team-card-desc">Reviews every piece of content before publishing. Brand voice. Golden Rule. No exceptions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE HUMAN -->
+    <section>
+      <h2>The human behind the team</h2>
+
+      <div class="author-card">
+        <p class="author-name">Daniel Jelić, MA</p>
+        <p class="author-role">Creative Director &amp; AI Architect</p>
+
+        <p style="color:var(--muted);font-size:15px;line-height:1.8;">
+          Daniel sets the creative direction, defines the brand, and designs the AI team
+          that executes it. His role is not to produce — it is to <strong>architect the
+          conditions under which production happens</strong>.
+        </p>
+        <p style="color:var(--muted);font-size:15px;line-height:1.8;margin-top:12px;">
+          He builds AI operators as creative collaborators: agents with defined roles,
+          voices, and decision-making frameworks. The question driving this work is:
+          <em style="color:var(--cream);">how much of creative production can AI own — and what does
+          the human's role become when it can?</em>
+        </p>
+
+        <div class="contact-links">
+          <a class="contact-link" href="https://www.linkedin.com/in/danieljelic" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a class="contact-link" href="mailto:danieljelic@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            danieljelic@gmail.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <div class="philosophy">
+      <p>
+        This project does not hide the role of AI. It centers it.
+        The website you just visited was built by an AI operator team — not assisted by AI,
+        not enhanced by AI, but <strong style="color:var(--cream);">built</strong> by AI,
+        with a human setting the direction and reviewing the result.
+      </p>
+      <p>
+        That is what AI architecture looks like in practice: the human moves to the level
+        of creative strategy, while AI handles production. The goal is not to replace
+        creative work — it is to find out what creative work becomes
+        when the production layer is no longer the bottleneck.
+      </p>
+      <p>
+        <strong style="color:var(--cream);">Sisters in a New World</strong> is both
+        a brand and a demonstration of that idea.
+      </p>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>
+      <a href="/">Sisters in a New World</a> &nbsp;·&nbsp;
+      AI architecture &amp; creative direction by Daniel Jelić &nbsp;·&nbsp;
+      &copy; 2025
+    </p>
+  </footer>
+
+</body>
+</html>
